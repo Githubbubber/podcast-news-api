@@ -5,7 +5,14 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.get('/', (req, res) => {
-    res.status(200).json({see: "list of news items"});
+    const getStuff = localStorage.getItem("news");
+
+    const items = getStuff !== "undefined" ? 
+    getStuff : get_all_news_items();
+
+    res.status(200).json({
+        see: items
+    });
 });
 
 app.get('/:news_item_id', async (req, res) => {
